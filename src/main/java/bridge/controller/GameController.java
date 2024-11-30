@@ -26,9 +26,11 @@ public class GameController {
 
         int location = 0;
         User user = new User();
+        boolean isSuccess = false;
+        int numberOfTrial = 1;
         while (true) {
             if (location == bridgeSize) {
-
+                isSuccess = true;
                 break;
             }
             OutputView.printMovingSpaceMessage();
@@ -60,19 +62,27 @@ public class GameController {
                 String restartingInput = InputView.readGameCommand();
                 boolean isRestart = bridgeGame.retry(restartingInput);
                 if (isRestart) {
+                    numberOfTrial++;
                     location = 0;
                     user = new User();
                 }
                 if (!isRestart) {
+
                     break;
                 }
             }
         }
+        result(user, isSuccess, numberOfTrial);
     }
 
     private void printUserRoute(User user) {
         List<String> upRoute = user.getUpRoute();
         List<String> downRoute = user.getDownRoute();
+        printEachRoute(upRoute);
+        printEachRoute(downRoute);
+    }
+
+    private static void printEachRoute(List<String> upRoute) {
         OutputView.printMapStart();
         for (int i = 0; i < upRoute.size(); i++) {
             OutputView.printMap(upRoute.get(i));
@@ -81,13 +91,18 @@ public class GameController {
             }
         }
         OutputView.printMapEnd();
-        OutputView.printMapStart();
-        for (int i = 0; i < downRoute.size(); i++) {
-            OutputView.printMap(downRoute.get(i));
-            if (i != downRoute.size()-1) {
-                OutputView.printMapStep();
-            }
-        }
-        OutputView.printMapEnd();
     }
+
+    private void result(User user, boolean isSuccess, int numberOfTrial) {
+        OutputView.printResult();
+        printUserRoute(user);
+        if(isSuccess) {
+            OutputView.printEndingMessage("성공", numberOfTrial);
+        }
+        if(!isSuccess) {
+            OutputView.printEndingMessage("실패", numberOfTrial);
+        }
+    }
+
+
 }
