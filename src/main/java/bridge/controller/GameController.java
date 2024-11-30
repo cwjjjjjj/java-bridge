@@ -27,15 +27,30 @@ public class GameController {
         int location = 0;
         User user = new User();
         while (true) {
-
             OutputView.printMovingSpaceMessage();
-            boolean isMoving = bridgeGame.move(bridge, location, InputView.readMoving());
+            String userMoving = InputView.readMoving();
+            boolean isMoving = bridgeGame.move(bridge, location, userMoving);
             if (isMoving) {
                 location++;
+                if (userMoving.equals("U")) {
+                    user.addUpRoute("O");
+                    user.addDownRoute(" ");
+                }
+                if (userMoving.equals("D")) {
+                    user.addUpRoute(" ");
+                    user.addDownRoute("O");
+                }
                 printUserRoute(user, bridge);
             }
-
             if (!isMoving) {
+                if (userMoving.equals("U")) {
+                    user.addUpRoute("X");
+                    user.addDownRoute(" ");
+                }
+                if (userMoving.equals("D")) {
+                    user.addUpRoute(" ");
+                    user.addDownRoute("X");
+                }
                 printUserRoute(user, bridge);
                 OutputView.printGameRestartMessage();
                 String restartingInput = InputView.readGameCommand();
