@@ -40,7 +40,7 @@ public class GameController {
                     user.addUpRoute(" ");
                     user.addDownRoute("O");
                 }
-                printUserRoute(user, bridge);
+                printUserRoute(user);
             }
             if (!isMoving) {
                 if (userMoving.equals("U")) {
@@ -51,7 +51,7 @@ public class GameController {
                     user.addUpRoute(" ");
                     user.addDownRoute("X");
                 }
-                printUserRoute(user, bridge);
+                printUserRoute(user);
                 OutputView.printGameRestartMessage();
                 String restartingInput = InputView.readGameCommand();
                 boolean isRestart = bridgeGame.retry(restartingInput);
@@ -65,9 +65,10 @@ public class GameController {
         }
     }
 
-    private void printUserRoute(User user, Bridge bridge) {
+    private void printUserRoute(User user) {
         List<String> upRoute = user.getUpRoute();
         List<String> downRoute = user.getDownRoute();
+        System.out.println(upRoute);
         OutputView.printMapStart();
         for (int i = 0; i < upRoute.size(); i++) {
             OutputView.printMap(upRoute.get(i));

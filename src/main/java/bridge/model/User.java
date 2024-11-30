@@ -1,12 +1,18 @@
 package bridge.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
+    private List<String> userRoute;
+    private List<String> upRoute;
+    private List<String> downRoute;
 
-    List<String> userRoute;
-    List<String> upRoute;
-    List<String> downRoute;
+    public User() {
+        userRoute = new ArrayList<>();
+        upRoute = new ArrayList<>();
+        downRoute = new ArrayList<>();
+    }
 
     public void addUpRoute(String upRoute) {
         userRoute.add(upRoute);
