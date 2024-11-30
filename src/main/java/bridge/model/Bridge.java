@@ -12,7 +12,7 @@ public class Bridge {
         this.size = size;
     }
 
-    public List<String> getBridgeState() {
-        return bridgeState;
+    public String getBridgeSingleState(int index) {
+        return bridgeState.get(index);
     }
 }
