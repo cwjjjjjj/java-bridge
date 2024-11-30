@@ -20,17 +20,17 @@ public class BridgeMaker {
      */
     public List<String> makeBridge(int size) {
         List<String> bridgeResult = new ArrayList<>();
-        BridgeRandomNumberGenerator bridgeRandomNumberGenerator = new BridgeRandomNumberGenerator();
-        determineUD(size, bridgeRandomNumberGenerator, bridgeResult);
+        determineUD(size, bridgeNumberGenerator, bridgeResult);
         return bridgeResult;
     }
 
-    private static void determineUD(int size, BridgeRandomNumberGenerator bridgeRandomNumberGenerator, List<String> bridgeResult) {
+    private static void determineUD(int size, BridgeNumberGenerator bridgeNumberGenerator, List<String> bridgeResult) {
         for (int i = 0; i < size; i++) {
-            if(bridgeRandomNumberGenerator.generate() == 0) {
+            int number = bridgeNumberGenerator.generate();
+            if (number == 0) {
                 bridgeResult.add("D");
             }
-            if(bridgeRandomNumberGenerator.generate() == 1) {
+            if (number == 1) {
                 bridgeResult.add("U");
             }
         }
