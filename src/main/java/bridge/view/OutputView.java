@@ -51,6 +51,9 @@ public class OutputView {
         System.out.print(FORMAT_STEP);
     }
 
+    public static void printErrorMessage(String message) {
+        System.out.println(message);
+    }
     /**
      * 게임의 최종 결과를 정해진 형식에 맞춰 출력한다.
      * <p>

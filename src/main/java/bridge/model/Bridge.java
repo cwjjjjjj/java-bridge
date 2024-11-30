@@ -5,11 +5,9 @@ import java.util.List;
 public class Bridge {
 
     private List<String> bridgeState;
-    private int size;
 
-    public Bridge(List<String> bridgeState, int size) {
+    public Bridge(List<String> bridgeState) {
         this.bridgeState = bridgeState;
-        this.size = size;
     }
 
     public String getBridgeSingleState(int index) {

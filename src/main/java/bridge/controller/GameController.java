@@ -1,10 +1,7 @@
 package bridge.controller;
 
 import bridge.BridgeGame;
-import bridge.model.Bridge;
-import bridge.model.BridgeMaker;
-import bridge.model.BridgeRandomNumberGenerator;
-import bridge.model.User;
+import bridge.model.*;
 import bridge.view.InputView;
 import bridge.view.OutputView;
 
@@ -20,9 +17,17 @@ public class GameController {
     public void run() {
         printStartMessage();
         printBridgeSizeMessage();
-        int bridgeSize = InputView.readBridgeSize();
+        int bridgeSize;
+        while(true) {
+            try {
+                bridgeSize = Integer.parseInt(InputView.readBridgeSize());
+                break;
+            } catch (NumberFormatException e) {
+                OutputView.printErrorMessage(ErrorMessage.INVALID_SIZE_INPUT.getMessage());
+            }
+        }
         List<String> makeBridge = bridgeMaker.makeBridge(bridgeSize);
-        Bridge bridge = new Bridge(makeBridge, bridgeSize);
+        Bridge bridge = new Bridge(makeBridge);
 
         int location = 0;
         User user = new User();
@@ -34,7 +39,15 @@ public class GameController {
                 break;
             }
             OutputView.printMovingSpaceMessage();
-            String userMoving = InputView.readMoving();
+            String userMoving;
+            while (true) {
+                try {
+                    userMoving = InputView.readMoving();
+                    break;
+                } catch (IllegalArgumentException e) {
+                    OutputView.printErrorMessage(ErrorMessage.INVALID_UD_INPUT.getMessage());
+                }
+            }
             boolean isMoving = bridgeGame.move(bridge, location, userMoving);
             if (isMoving) {
                 location++;
@@ -59,7 +72,15 @@ public class GameController {
                 }
                 printUserRoute(user);
                 OutputView.printGameRestartMessage();
-                String restartingInput = InputView.readGameCommand();
+                String restartingInput;
+                while (true) {
+                    try {
+                        restartingInput = InputView.readGameCommand();
+                        break;
+                    } catch (IllegalArgumentException e) {
+                        OutputView.printErrorMessage(ErrorMessage.INVALID_RESTART_INPUT.getMessage());
+                    }
+                }
                 boolean isRestart = bridgeGame.retry(restartingInput);
                 if (isRestart) {
                     numberOfTrial++;
@@ -67,7 +88,6 @@ public class GameController {
                     user = new User();
                 }
                 if (!isRestart) {
-
                     break;
                 }
             }
@@ -103,6 +123,4 @@ public class GameController {
             OutputView.printEndingMessage("실패", numberOfTrial);
         }
     }
-
-
 }
