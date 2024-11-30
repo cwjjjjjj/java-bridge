@@ -27,6 +27,10 @@ public class GameController {
         int location = 0;
         User user = new User();
         while (true) {
+            if (location == bridgeSize) {
+
+                break;
+            }
             OutputView.printMovingSpaceMessage();
             String userMoving = InputView.readMoving();
             boolean isMoving = bridgeGame.move(bridge, location, userMoving);
@@ -57,6 +61,7 @@ public class GameController {
                 boolean isRestart = bridgeGame.retry(restartingInput);
                 if (isRestart) {
                     location = 0;
+                    user = new User();
                 }
                 if (!isRestart) {
                     break;
@@ -68,7 +73,6 @@ public class GameController {
     private void printUserRoute(User user) {
         List<String> upRoute = user.getUpRoute();
         List<String> downRoute = user.getDownRoute();
-        System.out.println(upRoute);
         OutputView.printMapStart();
         for (int i = 0; i < upRoute.size(); i++) {
             OutputView.printMap(upRoute.get(i));
@@ -76,6 +80,8 @@ public class GameController {
                 OutputView.printMapStep();
             }
         }
+        OutputView.printMapEnd();
+        OutputView.printMapStart();
         for (int i = 0; i < downRoute.size(); i++) {
             OutputView.printMap(downRoute.get(i));
             if (i != downRoute.size()-1) {
@@ -83,6 +89,5 @@ public class GameController {
             }
         }
         OutputView.printMapEnd();
-
     }
 }

@@ -12,7 +12,7 @@ public class OutputView {
     private final static String IS_SUCCEED_MESSAGE = "게임 성공 여부: ";
     private final static String NUMBER_OF_TRIAL_MESSAGE = "총 시도한 횟수: ";
     private final static String FORMAT_START = "[ ";
-    private final static String FORMAT_END = " ]";
+    private final static String FORMAT_END = " ]\n";
     private final static String FORMAT_STEP = " | ";
 
     public static void printStartMessage() {

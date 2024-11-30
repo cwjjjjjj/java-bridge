@@ -14,12 +14,12 @@ public class User {
         downRoute = new ArrayList<>();
     }
 
-    public void addUpRoute(String upRoute) {
-        userRoute.add(upRoute);
+    public void addUpRoute(String Route) {
+        upRoute.add(Route);
     }
 
-    public void addDownRoute(String downRoute) {
-        userRoute.add(downRoute);
+    public void addDownRoute(String Route) {
+        downRoute.add(Route);
     }
 
     public void addUserRoute(String route) {
