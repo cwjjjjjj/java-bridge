@@ -266,16 +266,11 @@ public class BridgeMaker {
 
 ### BridgeRandomNumberGenerator 클래스
 
-- Random 값 추출은 제공된 `bridge.BridgeRandomNumberGenerator`의 `generate()`를 활용한다.
-- `BridgeRandomNumberGenerator`, `BridgeNumberGenerator` 클래스의 코드는 변경할 수 없다.
-
 #### 사용 예시
 
 - 다리 칸을 생성하기 위한 Random 값은 아래와 같이 추출한다.
-
-```java
+java
 int number = bridgeNumberGenerator.generate();
-``` 
 
 ### 라이브러리
 
