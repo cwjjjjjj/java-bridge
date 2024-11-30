@@ -18,14 +18,7 @@ public class GameController {
         printStartMessage();
         printBridgeSizeMessage();
         int bridgeSize;
-        while(true) {
-            try {
-                bridgeSize = Integer.parseInt(InputView.readBridgeSize());
-                break;
-            } catch (NumberFormatException e) {
-                OutputView.printErrorMessage(ErrorMessage.INVALID_SIZE_INPUT.getMessage());
-            }
-        }
+        bridgeSize = validateSizeInput();
         List<String> makeBridge = bridgeMaker.makeBridge(bridgeSize);
         Bridge bridge = new Bridge(makeBridge);
 
@@ -49,38 +42,13 @@ public class GameController {
                 }
             }
             boolean isMoving = bridgeGame.move(bridge, location, userMoving);
-            if (isMoving) {
-                location++;
-                if (userMoving.equals("U")) {
-                    user.addUpRoute("O");
-                    user.addDownRoute(" ");
-                }
-                if (userMoving.equals("D")) {
-                    user.addUpRoute(" ");
-                    user.addDownRoute("O");
-                }
-                printUserRoute(user);
-            }
+            location = procesMoving(isMoving, location, userMoving, user);
             if (!isMoving) {
-                if (userMoving.equals("U")) {
-                    user.addUpRoute("X");
-                    user.addDownRoute(" ");
-                }
-                if (userMoving.equals("D")) {
-                    user.addUpRoute(" ");
-                    user.addDownRoute("X");
-                }
+                addResult(userMoving, user, "X");
                 printUserRoute(user);
                 OutputView.printGameRestartMessage();
                 String restartingInput;
-                while (true) {
-                    try {
-                        restartingInput = InputView.readGameCommand();
-                        break;
-                    } catch (IllegalArgumentException e) {
-                        OutputView.printErrorMessage(ErrorMessage.INVALID_RESTART_INPUT.getMessage());
-                    }
-                }
+                restartingInput = getString();
                 boolean isRestart = bridgeGame.retry(restartingInput);
                 if (isRestart) {
                     numberOfTrial++;
@@ -93,6 +61,52 @@ public class GameController {
             }
         }
         result(user, isSuccess, numberOfTrial);
+    }
+
+    private int procesMoving(boolean isMoving, int location, String userMoving, User user) {
+        if (isMoving) {
+            location++;
+            addResult(userMoving, user, "O");
+            printUserRoute(user);
+        }
+        return location;
+    }
+
+    private static String getString() {
+        String restartingInput;
+        while (true) {
+            try {
+                restartingInput = InputView.readGameCommand();
+                break;
+            } catch (IllegalArgumentException e) {
+                OutputView.printErrorMessage(ErrorMessage.INVALID_RESTART_INPUT.getMessage());
+            }
+        }
+        return restartingInput;
+    }
+
+    private static void addResult(String userMoving, User user, String Result) {
+        if (userMoving.equals("U")) {
+            user.addUpRoute(Result);
+            user.addDownRoute(" ");
+        }
+        if (userMoving.equals("D")) {
+            user.addUpRoute(" ");
+            user.addDownRoute(Result);
+        }
+    }
+
+    private static int validateSizeInput() {
+        int bridgeSize;
+        while(true) {
+            try {
+                bridgeSize = Integer.parseInt(InputView.readBridgeSize());
+                break;
+            } catch (NumberFormatException e) {
+                OutputView.printErrorMessage(ErrorMessage.INVALID_SIZE_INPUT.getMessage());
+            }
+        }
+        return bridgeSize;
     }
 
     private void printUserRoute(User user) {
