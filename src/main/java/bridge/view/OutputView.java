@@ -11,6 +11,9 @@ public class OutputView {
     private final static String FINAL_RESULT_MESSAGE = "최종 게임 결과";
     private final static String IS_SUCCEED_MESSAGE = "게임 성공 여부: ";
     private final static String NUMBER_OF_TRIAL_MESSAGE = "총 시도한 횟수: ";
+    private final static String FORMAT_START = "[ ";
+    private final static String FORMAT_END = " ]";
+    private final static String FORMAT_STEP = " | ";
 
     public static void printStartMessage() {
         System.out.println(START_MESSAGE);
@@ -32,7 +35,20 @@ public class OutputView {
      * <p>
      * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
-    public void printMap() {
+    public static void printMap(String userState) {
+        System.out.print(userState);
+    }
+
+    public static void printMapStart() {
+        System.out.print(FORMAT_START);
+    }
+
+    public static void printMapEnd() {
+        System.out.print(FORMAT_END);
+    }
+
+    public static void printMapStep() {
+        System.out.print(FORMAT_STEP);
     }
 
     /**
